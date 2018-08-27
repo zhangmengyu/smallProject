@@ -2,12 +2,12 @@
   <div class="m-search">
     <header class="m-search-header">
       <div class="m-search-input">
-        <router-link to="/home" class="m-search-back">
-          <img src="" alt="">
+        <router-link to="/home/edit" class="m-search-back">
+          <img src="../../../assets/img/back.png" alt="">
         </router-link>
         <input type="text" placeholder="搜索作品名、作者">
         <a href="javascript:;" class="m-search-button">
-          <img src="../../../assets/search.png" alt="">
+          <img src="../../../assets/img/search.png" alt="">
         </a>
       </div>
     </header>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-  import SearchRecord from '../component/SearchRecord'
+  import SearchRecord from '../base/SearchRecord'
 
   export default {
     name: "Search",
@@ -69,6 +69,7 @@
       }
 
       input {
+        box-sizing: border-box;
         width: 6.02rem;
         height: .68rem;
         margin-left: .1rem;
@@ -76,6 +77,8 @@
         border-radius: .34rem;
         border: none;
         padding: .12rem .3rem;
+        font-size: .32rem;
+        color: #B1B1B1;;
       }
     }
   }

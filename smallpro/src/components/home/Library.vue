@@ -1,10 +1,25 @@
 <template>
-  <main>全部作品页</main>
+  <main>
+    <transition name="slide">
+      <HomeHeader :selected="selected"></HomeHeader>
+      全部作品页
+    </transition>
+  </main>
 </template>
 
 <script>
+  import HomeHeader from './base/HomeHeader'
+
   export default {
-    name: "Library"
+    name: "Library",
+    components: {
+      HomeHeader
+    },
+    data() {
+      return {
+        selected: 'library'
+      }
+    }
   }
 </script>
 

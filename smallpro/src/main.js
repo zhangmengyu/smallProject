@@ -1,41 +1,29 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-import routes from './routes';
 import App from './App';
-
-import axios from 'axios';
+import router from './router';
 import MintUI from 'mint-ui';
+import './api'
 
-Vue.use(VueRouter);
 Vue.use(MintUI);
 
-// axios.defaults.baseURL = 'http://i.66rpg.com';
-axios.defaults.baseURL = 'http://test-service.cgapi.cn/qc-community';
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-
 Vue.config.productionTip = false;
-
-const router = new VueRouter({
-  routes // (缩写) 相当于 routes: routes
-});
 
 
 new Vue({
   el: '#app',
   router,
-  render: h => h(App),
+  components: {App},
+  template: '<App/>'
 });
 
 
 /*
 import {Tabbar, Navbar, TabItem, TabContainer, TabContainerItem, Loadmore} from 'mint-ui';
 
-Vue.component(Tabbar.name, Tabbar);
-Vue.component(Navbar.name, Navbar);
-Vue.component(TabItem.name, TabItem);
-Vue.component(TabContainer.name, TabContainer);
-Vue.component(TabContainerItem.name, TabContainerItem);
-Vue.component(Loadmore.name, Loadmore);
+Vue.base(Tabbar.name, Tabbar);
+Vue.base(Navbar.name, Navbar);
+Vue.base(TabItem.name, TabItem);
+Vue.base(TabContainer.name, TabContainer);
+Vue.base(TabContainerItem.name, TabContainerItem);
+Vue.base(Loadmore.name, Loadmore);
 */
