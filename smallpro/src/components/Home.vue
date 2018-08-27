@@ -7,7 +7,7 @@
         <img src="../assets/search@2x.png" alt="">
       </a>
     </mt-navbar>
-    <mt-tab-container v-model="active" swipeable>
+    <mt-tab-container v-model="active">
       <mt-tab-container-item id="tabContainer1">
         <Edit/>
       </mt-tab-container-item>
@@ -17,10 +17,10 @@
     </mt-tab-container>
   </main>
 </template>
-
+<!--swipeable-->
 <script>
-  import Edit from './Edit';
-  import Library from './Library';
+  import Edit from './home/Edit';
+  import Library from './home/Library';
 
   export default {
     name: 'Home',

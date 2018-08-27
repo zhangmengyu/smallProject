@@ -2,35 +2,41 @@
   <div id="app">
     <mt-tab-container v-model="selected">
       <mt-tab-container-item id="home">
-        <!--<Home/>-->
-        <Channel/>
+        <Home/>
       </mt-tab-container-item>
       <mt-tab-container-item id="bookshelf">
-        书架
+        <Channel/>
       </mt-tab-container-item>
       <mt-tab-container-item id="produce">
-        创作
+        <Search/>
       </mt-tab-container-item>
       <mt-tab-container-item id="personal">
-        我的
       </mt-tab-container-item>
     </mt-tab-container>
     <mt-tabbar v-model="selected" fixed>
       <mt-tab-item id="home">
+        <!--<router-link to="/home">-->
         <img slot="icon" :src="tabSelected.isHome ? home_active : home">
         首页
+        <!--</router-link>-->
       </mt-tab-item>
       <mt-tab-item id="bookshelf">
+        <!--<router-link to="/bookshelf">-->
         <img slot="icon" :src="tabSelected.isBookshelf ? bookshelf_active : bookshelf">
         书架
+        <!--</router-link>-->
       </mt-tab-item>
       <mt-tab-item id="produce">
+        <!--<router-link to="/produce">-->
         <img slot="icon" :src="tabSelected.isProduce ? produce_active : produce">
         创作
+        <!--</router-link>-->
       </mt-tab-item>
       <mt-tab-item id="personal">
+        <!--<router-link to="/personal">-->
         <img slot="icon" :src="tabSelected.isPersonal ? personal_active : personal">
         我的
+        <!--</router-link>-->
       </mt-tab-item>
     </mt-tabbar>
   </div>
@@ -38,11 +44,13 @@
 
 <script>
   import Home from './components/Home';
-  import Channel from './components/Channel';
+  import Channel from './components/home/second/Channel';
+  import Search from './components/home/second/Search';
 
   export default {
     name: 'App',
     components: {
+      Search,
       Home,
       Channel
     },

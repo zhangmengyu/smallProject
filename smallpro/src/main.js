@@ -1,18 +1,15 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
+import VueRouter from 'vue-router';
+import routes from './routes';
 import App from './App';
+
 import axios from 'axios';
 import MintUI from 'mint-ui';
-import VueRouter from 'vue-router';
 
-//IMPORT COMMPONENTS
-import Home from './components/Home';
-import Channel from './components/Channel';
-
-
-Vue.use(MintUI);
 Vue.use(VueRouter);
+Vue.use(MintUI);
 
 // axios.defaults.baseURL = 'http://i.66rpg.com';
 axios.defaults.baseURL = 'http://test-service.cgapi.cn/qc-community';
@@ -20,20 +17,15 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 
 Vue.config.productionTip = false;
 
-
-const routes = [
-  {path: '/channel', component: Channel},
-  {path: '/',component: Home}
-];
-
 const router = new VueRouter({
   routes // (缩写) 相当于 routes: routes
 });
 
+
 new Vue({
   el: '#app',
+  router,
   render: h => h(App),
-  router
 });
 
 
