@@ -23,7 +23,7 @@ export let setCollection = (data) => {
 };
 //取消收藏
 export let cannelCollection = (data) => {
-  return axios.post('/v1/qingcheng/community/detail/cannel_collection', qs.stringify(data));
+  return axios.post('/v1/qingcheng/community/detail/cancel_collection', qs.stringify(data));
 };
 //点赞
 export let praiseGame = (data) => {
@@ -37,3 +37,5 @@ export let getHotSearch = (data) => {
 export let getGameName = (data) => {
   return axios.post('/v1/qingcheng/community/search/get_game_name', qs.stringify(data));
 };
+
+

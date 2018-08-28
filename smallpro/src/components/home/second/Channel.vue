@@ -1,22 +1,23 @@
 <template>
   <div class="m-channel">
-    <mt-header fixed title="悬疑反转">
+    <mt-header fixed :title="title">
       <router-link to="/home/edit" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>
     <div class="m-channel-container">
-      <ul class="m-channel-List clear">
-        <li>
+      <ul class="m-channel-List clear" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading">
+        <li v-for="(item,index) in workList" :key="index">
           <a href="javascript:;">
-            <img src="../../../assets/img/pic.jpg" alt="">
+            <img :src="item.thumb" alt="">
             <div class="m-home-sWorkIntro">
               <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
+                <span class="m-home-sWorkCollect"
+                      @click="clickCollect(index, item.is_fav, item.tid, item.gindex, item.version)">
+                <img :src="item.is_fav ? favoriteImg : noFavoriteImg" alt="">
               </span>
                 <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
+                <img :src="item.is_praise ? praiseImg : noPraiseImg" alt="">
               </span>
                 <span class="m-home-sWorkLabel m-home-WorkLabel3">
                 精修中
@@ -27,359 +28,7 @@
               <img src="../../../assets/img/recommend.png" alt="">
             </span>
           </a>
-          <p>清明上河图清明上河图清明上河图</p>
-        </li>
-        <li>
-          <a href="javascript:;">
-            <img src="../../../assets/img/pic.jpg" alt="">
-            <div class="m-home-sWorkIntro">
-              <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-                <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-                <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-              </p>
-            </div>
-            <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-          </a>
-          <p>清明上河图清明上河图清明上河图</p>
-        </li>
-        <li>
-          <a href="javascript:;">
-            <img src="../../../assets/img/pic.jpg" alt="">
-            <div class="m-home-sWorkIntro">
-              <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-                <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-                <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-              </p>
-            </div>
-            <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-          </a>
-          <p>清明上河图清明上河图清明上河图</p>
-        </li>
-        <li>
-          <a href="javascript:;">
-            <img src="../../../assets/img/pic.jpg" alt="">
-            <div class="m-home-sWorkIntro">
-              <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-                <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-                <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-              </p>
-            </div>
-            <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-          </a>
-          <p>清明上河图清明上河图清明上河图</p>
-        </li>
-        <li>
-          <a href="javascript:;">
-            <img src="../../../assets/img/pic.jpg" alt="">
-            <div class="m-home-sWorkIntro">
-              <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-                <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-                <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-              </p>
-            </div>
-            <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-          </a>
-          <p>清明上河图清明上河图清明上河图</p>
-        </li>
-        <li>
-          <a href="javascript:;">
-            <img src="../../../assets/img/pic.jpg" alt="">
-            <div class="m-home-sWorkIntro">
-              <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-                <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-                <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-              </p>
-            </div>
-            <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-          </a>
-          <p>清明上河图清明上河图清明上河图</p>
-        </li>
-        <li>
-        <a href="javascript:;">
-          <img src="../../../assets/img/pic.jpg" alt="">
-          <div class="m-home-sWorkIntro">
-            <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-              <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-              <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-            </p>
-          </div>
-          <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-        </a>
-        <p>清明上河图清明上河图清明上河图</p>
-      </li>
-        <li>
-        <a href="javascript:;">
-          <img src="../../../assets/img/pic.jpg" alt="">
-          <div class="m-home-sWorkIntro">
-            <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-              <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-              <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-            </p>
-          </div>
-          <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-        </a>
-        <p>清明上河图清明上河图清明上河图</p>
-      </li>
-        <li>
-          <a href="javascript:;">
-            <img src="../../../assets/img/pic.jpg" alt="">
-            <div class="m-home-sWorkIntro">
-              <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-                <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-                <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-              </p>
-            </div>
-            <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-          </a>
-          <p>清明上河图清明上河图清明上河图</p>
-        </li>
-        <li>
-        <a href="javascript:;">
-          <img src="../../../assets/img/pic.jpg" alt="">
-          <div class="m-home-sWorkIntro">
-            <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-              <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-              <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-            </p>
-          </div>
-          <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-        </a>
-        <p>清明上河图清明上河图清明上河图</p>
-      </li>
-        <li>
-        <a href="javascript:;">
-          <img src="../../../assets/img/pic.jpg" alt="">
-          <div class="m-home-sWorkIntro">
-            <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-              <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-              <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-            </p>
-          </div>
-          <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-        </a>
-        <p>清明上河图清明上河图清明上河图</p>
-      </li>
-        <li>
-          <a href="javascript:;">
-            <img src="../../../assets/img/pic.jpg" alt="">
-            <div class="m-home-sWorkIntro">
-              <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-                <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-                <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-              </p>
-            </div>
-            <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-          </a>
-          <p>清明上河图清明上河图清明上河图</p>
-        </li>
-        <li>
-          <a href="javascript:;">
-            <img src="../../../assets/img/pic.jpg" alt="">
-            <div class="m-home-sWorkIntro">
-              <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-                <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-                <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-              </p>
-            </div>
-            <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-          </a>
-          <p>清明上河图清明上河图清明上河图</p>
-        </li>
-        <li>
-          <a href="javascript:;">
-            <img src="../../../assets/img/pic.jpg" alt="">
-            <div class="m-home-sWorkIntro">
-              <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-                <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-                <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-              </p>
-            </div>
-            <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-          </a>
-          <p>清明上河图清明上河图清明上河图</p>
-        </li>
-        <li>
-          <a href="javascript:;">
-            <img src="../../../assets/img/pic.jpg" alt="">
-            <div class="m-home-sWorkIntro">
-              <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-                <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-                <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-              </p>
-            </div>
-            <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-          </a>
-          <p>清明上河图清明上河图清明上河图</p>
-        </li>
-        <li>
-          <a href="javascript:;">
-            <img src="../../../assets/img/pic.jpg" alt="">
-            <div class="m-home-sWorkIntro">
-              <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-                <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-                <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-              </p>
-            </div>
-            <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-          </a>
-          <p>清明上河图清明上河图清明上河图</p>
-        </li>
-        <li>
-          <a href="javascript:;">
-            <img src="../../../assets/img/pic.jpg" alt="">
-            <div class="m-home-sWorkIntro">
-              <p>
-                <span class="m-home-sWorkCollect">
-                <img src="../../../assets/img/collect.png" alt="">
-              </span>
-                <span class="m-home-sWorkLike">
-                <img src="../../../assets/img/like.png" alt="">
-              </span>
-                <span class="m-home-sWorkLabel m-home-WorkLabel3">
-                精修中
-              </span>
-              </p>
-            </div>
-            <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
-            </span>
-          </a>
-          <p>清明上河图清明上河图清明上河图</p>
+          <p>{{item.gname}}</p>
         </li>
       </ul>
     </div>
@@ -387,8 +36,98 @@
 </template>
 
 <script>
+  import {getEditDatabyType, setCollection, cannelCollection} from '../../../api';
+
   export default {
-    name: "Channel"
+    name: "Channel",
+    data() {
+      return {
+        tid: parseInt(this.$route.params.tid),
+        workList: [],
+        title: this.$route.params.title,
+        isLogin: true,
+        page: 1,
+        totalPages: 0,
+        loading: false,
+        allLoaded: false,
+        favoriteImg: require('../../../assets/img/collected.png'),
+        noFavoriteImg: require('../../../assets/img/collect.png'),
+        praiseImg: require('../../../assets/img/liked.png'),
+        noPraiseImg: require('../../../assets/img/like.png')
+      }
+    },
+    /*created() {
+      this.getData();
+    },*/
+    methods: {
+      getData() {
+        let _this = this,
+          data = {
+            token: "0&a",
+            sign: '',
+            tid: this.tid,
+            page: this.page,
+            pageSize: 20
+          };
+        getEditDatabyType(data).then(function (res) {
+          if (res.isOk) {
+            _this.workList = _this.workList.concat(res.data.list);
+            // _this.page++;
+            _this.totalPages = res.data.totalPages;
+            // _this.page > _this.totalPages ? _this.allLoaded = true : null;
+          }
+        })
+      },
+      loadMore() {
+        this.loading = true;
+        if (this.page === 1) {
+          this.getData();
+          this.page++;
+        } else if (this.page > 1 && this.page <= this.totalPages) {
+          setTimeout(() => {
+            this.getData();
+            this.page++;
+          }, 1000);
+        } else {
+          this.allLoaded = true;
+        }
+        this.loading = false;
+      },
+      //点击收藏图标
+      clickCollect: function (index, favorite, tid, gindex, version) {
+        let _this = this;
+        if (!_this.isLogin) {
+          alert('未登录');
+          return;
+        }
+        if (favorite) {
+          let data = {
+            token: '0&a',
+            sign: 'a',
+            tid,
+            gindex
+          };
+          cannelCollection(data).then(function (res) {
+            if (res.isOk) {
+              _this.workList[index]['is_fav'] = 0;
+            }
+          });
+        } else {
+          let data = {
+            token: '0&a',
+            sign: 'a',
+            tid,
+            gindex,
+            version
+          };
+          setCollection(data).then(function (res) {
+            if (res.isOk) {
+              _this.workList[index]['is_fav'] = 1;
+            }
+          });
+        }
+      },
+    }
   }
 </script>
 
@@ -450,6 +189,7 @@
           height: 2.68rem;
           border-radius: .16rem;
           overflow: hidden;
+          background: aqua;
 
           img {
             width: 100%;
@@ -531,3 +271,5 @@
     }
   }
 </style>
+
+

@@ -11,11 +11,11 @@ import Channel from '../components/home/second/Channel'
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const router = new VueRouter({
   routes: [
     {
       path: '/',
-      component: Home
+      redirect: '/home/edit'
     },
     {
       path: '/home',
@@ -34,7 +34,8 @@ export default new VueRouter({
           component: Search
         },
         {
-          path: 'channel',
+          path: 'channel/:title/:tid',
+          name:'channel',
           component: Channel
         },
       ]
@@ -52,7 +53,18 @@ export default new VueRouter({
       component: Personal
     }
   ]
-})
+});
 
+// router.beforeEach(function () {
+//   //
+//   console.log(1);
+//   next();
+// });
+// beforeEnter: (to, from, next) => {
+//   window.scrollTo(0, 0);
+//   next('/home/channel');
+// }
+
+export default router;
 
 

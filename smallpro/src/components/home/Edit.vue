@@ -3,11 +3,12 @@
     <HomeHeader :selected="selected"></HomeHeader>
     <transition name="slide">
       <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
-        <Carousel :sliders="sliders"></Carousel>
+        <Carousel :sliders="sliders" @setCollect="setCollect" @cannelCollect="cannelCollect"></Carousel>
         <div class="m-home-adBox">
           <img src="../../assets/img/pic.jpg" alt="">
         </div>
-        <Sort v-for="(value, key, index) in sort" :sort="value" :title="key" :key="index"></Sort>
+        <Sort v-for="(value, key, index) in sort" :sort="value" :title="key" :tid="value[0].tid" :key="index" @setCollect="setCollect"
+              @cannelCollect="cannelCollect"></Sort>
         <div class="m-home-goldSystem">
           <a href="javascript:;">
             任务奖励设计图
@@ -22,8 +23,7 @@
   import HomeHeader from './base/HomeHeader';
   import Carousel from './base/Carousel';
   import Sort from './base/sort';
-  import axios from 'axios';
-  import {getEditPageData, getEditDatabyType} from '../../api';
+  import {getEditPageData, getEditDatabyType, setCollection, cannelCollection} from '../../api';
 
   export default {
     name: 'Edit',
@@ -36,30 +36,35 @@
       return {
         selected: "edit",
         allLoaded: false,
-        sliders: [],
+        sliders: {},
         sort: {}
       }
     },
+    watch: {
+
+    },
     created() {
-      this.requirePage();
+      let _this = this,
+        data = {
+          token: '0&a',
+          sign: '',
+          page: 1,
+          pageSize: 5
+        };
+      getEditPageData(data).then(function (res) {
+        var gameObj = res.data.game_data;
+        for (let attr in gameObj) {
+          if (attr === '近期完结精选') {
+            _this.sliders = gameObj[attr];
+          } else {
+            gameObj[attr].length ? _this.sort[attr] = gameObj[attr] : null;
+          }
+        }
+      })
     },
     methods: {
-
       //下拉刷新
       loadTop() {
-        this.requirePage();
-        this.$refs.loadmore.onTopLoaded();
-      }
-      ,
-      //上拉加载
-      loadBottom() {
-        this.requireData();
-        // this.allLoaded = true;// 若数据已全部获取完毕
-        this.$refs.loadmore.onBottomLoaded();
-      }
-      ,
-      //整页加载
-      requirePage: function () {
         let _this = this,
           data = {
             token: '0&a',
@@ -70,28 +75,58 @@
         getEditPageData(data).then(function (res) {
           var gameObj = res.data.game_data;
           for (let attr in gameObj) {
-            console.log(parseFloat(attr));
-            if (parseFloat(attr) === 5) {
-              console.log(gameObj[attr], _this);
+            if (attr === '近期完结精选') {
               _this.sliders = gameObj[attr];
-              break;
+            } else {
+              gameObj[attr].length ? _this.sort[attr] = gameObj[attr] : null;
             }
-            _this.sort[attr] = gameObj[attr];
           }
+        }).then(function () {
+
+          _this.$refs.loadmore.onTopLoaded();
         })
-      }
-      ,
-      //获取更多数据
-      requireData: function () {
-        axios.post('/v1/qingcheng/community/index/get_page_by_editor_default', {
+      },
+      //上拉加载
+      loadBottom() {
+        console.log(1);
+        let _this = this,
+          data = {
+            token: '0&a',
+            sign: '',
+            tid: 2,
+            page: 2,
+            pageSize: 3
+          };
+        getEditDatabyType(data).then(function (res) {
+          console.log(res);
+        }).then(function () {
+          // _this.allLoaded = true;// 若数据已全部获取完毕
+          _this.$refs.loadmore.onBottomLoaded();
+        })
+
+      },
+      //收藏操作
+      setCollect: function (tid, gindex, version) {
+        console.log('setCollect', tid, gindex, version);
+        let data = {
           token: '0&a',
-          sign: 'a',
-          page: 1,
-          pageSize: 3
-        }).then(function (res) {
-          console.log('requireData', res);
-          // this.sliders = res.data.tid1.list;
-        })
+          sign: '',
+          tid,
+          gindex,
+          version
+        };
+        setCollection(data);
+      },
+      //取消收藏操作
+      cannelCollect: function (tid, gindex) {
+        console.log('cannelCollect', tid, gindex);
+        let data = {
+          token: '0&a',
+          sign: '1',
+          tid,
+          gindex
+        };
+        cannelCollection(data);
       }
     }
   }

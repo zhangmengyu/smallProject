@@ -11,15 +11,15 @@
           <a href="javascript:;" v-if="curIndex === index">
             <div class="m-home-cWorkIntro">
               <p>
-                <span class="m-home-cWorkCollect">
-                <img :src="favorite ? favoriteImg : noFavoriteImg" alt="">
-              </span>
-                <span class="m-home-cWorkLike">
-                <img :src="praise ? praiseImg : noPraiseImg" alt="">
-              </span>
+                <span class="m-home-cWorkCollect" @click="clickCollect">
+                  <img :src="favorite ? favoriteImg : noFavoriteImg" alt="">
+                </span>
+                <span class="m-home-cWorkLike" @click="clickLike">
+                  <img :src="praise ? praiseImg : noPraiseImg" alt="">
+                </span>
                 <span class="m-home-cWorkLabel m-home-WorkLabel4">
-                部分完结
-              </span>
+                  部分完结
+                </span>
               </p>
             </div>
           </a>
@@ -41,31 +41,36 @@
 <script>
   export default {
     name: 'Carousel',
-    props: {
-      sliders: Array
-    },
+    props: ['sliders'],
     data() {
       return {
+        isLogin: true,
         curIndex: 0,
         startPoint: 0,
         currPoint: 0,
         disX: 0,
         index: 0,
-        word: 0,
         gname: '',
-        favorite: false,
-        praise: false,
+        gindex: 0,
+        word: 1,
+        favorite: 0,
+        praise: 0,
+        version: 0,
+        tid: '',
         favoriteImg: require('../../../assets/img/collected.png'),
         noFavoriteImg: require('../../../assets/img/collect.png'),
         praiseImg: require('../../../assets/img/liked.png'),
         noPraiseImg: require('../../../assets/img/like.png')
       }
     },
-    mounted: function () {
-      this.word = this.sliders[0].word;
-      this.gname = this.sliders[0].gname;
-      this.favorite = this.sliders[0].favorite;
-      this.praise = this.sliders[0].praise;
+    beforeUpdate() {
+      this.word = this.sliders[this.curIndex].word;
+      this.gname = this.sliders[this.curIndex].gname;
+      this.favorite = this.sliders[this.curIndex].is_fav;
+      this.praise = this.sliders[this.curIndex].is_praise;
+      this.version = this.sliders[this.curIndex].version;
+      this.gindex = this.sliders[this.curIndex].gindex;
+      this.tid = this.sliders[this.curIndex].tid;
     },
     methods: {
       //手指滑动
@@ -79,18 +84,34 @@
         this.disX = this.startPoint - this.currPoint;
         this.index = this.curIndex + parseInt(this.disX / 200);
         this.curIndex = this.index >= 0 && this.index <= this.sliders.length - 1 ? this.index : this.curIndex;
-        this.word = this.sliders[this.curIndex].word;
-        this.gname = this.sliders[this.curIndex].gname;
-        this.favorite = this.sliders[this.curIndex].favorite;
-        this.praise = this.sliders[this.curIndex].praise;
       },
       ctouchend: function (e) {
         e.stopPropagation();
         // this.index = this.curIndex + 1;
       },
-      //收藏操作
-      collect: function (e) {
-
+      //点击收藏图标
+      clickCollect: function () {
+        if (!this.isLogin) {
+          alert('未登录');
+          return;
+        }
+        if (this.favorite) {
+          this.$emit('cannelCollect', this.tid, this.gindex);
+          this.favorite = 0;
+          this.sliders[this.curIndex].is_fav = 0;
+        } else {
+          this.$emit('setCollect', this.tid, this.gindex, this.version);
+          this.favorite = 1;
+          this.sliders[this.curIndex].is_fav = 1;
+        }
+      },
+      //点击点赞图标
+      clickLike: function (e) {
+        if (!this.isLogin) {
+          alert('未登录');
+          return;
+        }
+        console.log('clickLike');
       }
     }
   }

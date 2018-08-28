@@ -1,20 +1,23 @@
 <template>
   <div class="m-home-sort">
     <h2>
-      {{title}}
-      <router-link to="/home/channel"><span>更多</span></router-link>
+      {{myTitle}}
+      <router-link :to="{name: 'channel', params:{title:myTitle,tid:myTid}}">
+        <span>更多</span>
+      </router-link>
     </h2>
     <div class="m-home-sortList">
       <ul class="clear" :style="listWidth">
-        <li v-for="(item, index) in sort" :key="index">
+        <li v-for="(item, index) in mySort" :key="index">
           <a href="javascript:;">
             <img :src="item.thumb" alt="">
             <div class="m-home-sWorkIntro">
               <p>
-                <span class="m-home-sWorkCollect">
+                <span class="m-home-sWorkCollect"
+                      @click="clickCollect(index, item.favorite, item.tid, item.gindex, item.version)">
                 <img :src="item.favorite ? favoriteImg : noFavoriteImg" alt="">
               </span>
-                <span class="m-home-sWorkLike">
+                <span class="m-home-sWorkLike" @click="clickLike">
                 <img :src="item.praise ? praiseImg : noPraiseImg" alt="">
               </span>
                 <span class="m-home-sWorkLabel m-home-WorkLabel3">
@@ -43,9 +46,13 @@
 
   export default {
     name: "sort",
-    props: ['sort', 'title'],
+    props: ['sort', 'title', 'tid'],
     data() {
       return {
+        isLogin: true,
+        mySort: this.sort,
+        myTitle: this.title,
+        myTid: this.tid,
         favoriteImg: require('../../../assets/img/collected.png'),
         noFavoriteImg: require('../../../assets/img/collect.png'),
         praiseImg: require('../../../assets/img/liked.png'),
@@ -59,7 +66,7 @@
         }
       }
     },
-    mounted: function () {
+    mounted() {
       let list = document.querySelectorAll('.m-home-sortList');
       list.forEach(function (item, index) {
         let myScroll = new IScroll(item, {
@@ -72,20 +79,29 @@
       });*/
     },
     methods: {
-      //点赞操作
-      like: function (e) {
-        console.log(e);
-        console.log(e.path[0]);
-        axios.post('/v1/qingcheng/community/score_game').then(function (res) {
-          if (parseFloat(res.code) === 0) {
-
-          }
-        }).catch(function (err) {
-          console.log(err);
-        })
+      //点击收藏图标
+      clickCollect: function (index, favorite, tid, gindex, version) {
+        if (!this.isLogin) {
+          alert('未登录');
+          return;
+        }
+        if (favorite) {
+          this.$emit('cannelCollect', tid, gindex);
+          this.mySort[index]['favorite'] = 0;
+        } else {
+          this.$emit('setCollect', tid, gindex, version);
+          this.mySort[index]['favorite'] = 1;
+        }
+      },
+      //点击点赞图标
+      clickLike: function (e) {
+        if (!this.isLogin) {
+          alert('未登录');
+          return;
+        }
+        console.log('clickLike');
       }
     }
-
   }
 </script>
 
