@@ -14,8 +14,8 @@
                 <span class="m-home-cWorkCollect" @click="clickCollect">
                   <img :src="favorite ? favoriteImg : noFavoriteImg" alt="">
                 </span>
-                <span class="m-home-cWorkLike" @click="clickLike">
-                  <img :src="praise ? praiseImg : noPraiseImg" alt="">
+                <span class="m-home-cWorkLike" @click="clickLike" v-if="!praise">
+                  <img src="../../assets/img/like.png" alt="">
                 </span>
                 <span class="m-home-cWorkLabel m-home-WorkLabel4">
                   部分完结
@@ -30,7 +30,7 @@
       <div class="m-home-cWorkState">
         <p>
           <span class="m-home-cWorkTitle">{{gname}}</span>
-          <span class="m-home-cWorkJJ">{{100}}个结局</span>
+          <span class="m-home-cWorkJJ">{{game_node}}个结局</span>
           <span class="m-home-cWorkWZ">{{word}}</span>
         </p>
       </div>
@@ -52,20 +52,20 @@
         index: 0,
         gname: '',
         gindex: 0,
+        game_node:0,
         word: 1,
         favorite: 0,
         praise: 0,
         version: 0,
         tid: '',
-        favoriteImg: require('../../../assets/img/collected.png'),
-        noFavoriteImg: require('../../../assets/img/collect.png'),
-        praiseImg: require('../../../assets/img/liked.png'),
-        noPraiseImg: require('../../../assets/img/like.png')
+        favoriteImg: require('../../assets/img/collected.png'),
+        noFavoriteImg: require('../../assets/img/collect.png'),
       }
     },
     beforeUpdate() {
       this.word = this.sliders[this.curIndex].word;
       this.gname = this.sliders[this.curIndex].gname;
+      this.game_node = this.sliders[this.curIndex].game_node;
       this.favorite = this.sliders[this.curIndex].is_fav;
       this.praise = this.sliders[this.curIndex].is_praise;
       this.version = this.sliders[this.curIndex].version;
@@ -134,7 +134,6 @@
       h2 {
         height: .5rem;
         line-height: .5rem;
-        font-family: PingFangSC-Medium;
         font-size: .36rem;
         font-weight: normal;
         color: #FFFFFF;
@@ -220,7 +219,6 @@
                     height: .44rem;
                     border-radius: .22rem;
                     padding: .04rem .16rem;
-                    font-family: PingFangSC-Regular;
                     font-size: .24rem;
                   }
                 }
@@ -324,7 +322,7 @@
           line-height: .4rem;
           text-align: center;
           font-size: .24rem;
-          color: #999999;
+          color: #919BB0;
         }*/
       }
 
@@ -345,16 +343,14 @@
           span {
             display: inline-block;
             height: .48rem;
-            font-family: PingFangSC-Regular;
             font-size: .24rem;
-            color: #999999;
+            color: #919BB0;
 
             &.m-home-cWorkTitle {
               height: .48rem;
               width: 2.84rem;
-              font-family: PingFangSC-Medium;
               font-size: .32rem;
-              color: #2C2C2C;
+              color: #354168;
               letter-spacing: 0;
               overflow: hidden;
               text-overflow: ellipsis;
@@ -372,7 +368,7 @@
                 content: '';
                 width: .48rem;
                 height: .48rem;
-                background: url("../../../assets/img/word.png") no-repeat;
+                background: url("../../assets/img/word.png") no-repeat;
                 background-size: 100%;
               }
             }

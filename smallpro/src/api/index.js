@@ -29,13 +29,12 @@ export let cannelCollection = (data) => {
 export let praiseGame = (data) => {
   return axios.post('/v1/qingcheng/community/detail/praise_game', qs.stringify(data));
 };
-//获取热门搜索
-export let getHotSearch = (data) => {
-  return axios.post('/v1/qingcheng/community/search/get_hot_search', qs.stringify(data));
-};
 //智能联想匹配
 export let getGameName = (data) => {
   return axios.post('/v1/qingcheng/community/search/get_game_name', qs.stringify(data));
 };
-
+//获取热门搜索
+export let getGamebyKeyword = (data) => {
+  return axios.post('v1/qingcheng/community/search/get_game_by_keyword', qs.stringify(data));
+};
 

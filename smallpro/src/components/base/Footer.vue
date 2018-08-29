@@ -70,14 +70,13 @@
       }
 
       .mint-tab-item-label {
-        font-family: PingFangSC-Regular;
         font-size: .22rem;
         line-height: .32rem;
       }
 
       &.is-selected {
         background-color: #F9F9F9;
-        color: #FF656D;
+        color: #647DFF;
       }
     }
   }

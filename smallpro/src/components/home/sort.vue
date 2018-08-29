@@ -17,8 +17,8 @@
                       @click="clickCollect(index, item.favorite, item.tid, item.gindex, item.version)">
                 <img :src="item.favorite ? favoriteImg : noFavoriteImg" alt="">
               </span>
-                <span class="m-home-sWorkLike" @click="clickLike">
-                <img :src="item.praise ? praiseImg : noPraiseImg" alt="">
+                <span class="m-home-sWorkLike" @click="clickLike" v-if="!item.praise">
+                <img src="../../assets/img/like.png" alt="">
               </span>
                 <span class="m-home-sWorkLabel m-home-WorkLabel3">
                 精修中
@@ -26,7 +26,7 @@
               </p>
             </div>
             <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
+              <img src="../../assets/img/recommend.png" alt="">
             </span>
           </a>
           <p>{{item.gname}}</p>
@@ -53,16 +53,16 @@
         mySort: this.sort,
         myTitle: this.title,
         myTid: this.tid,
-        favoriteImg: require('../../../assets/img/collected.png'),
-        noFavoriteImg: require('../../../assets/img/collect.png'),
-        praiseImg: require('../../../assets/img/liked.png'),
-        noPraiseImg: require('../../../assets/img/like.png')
+        favoriteImg: require('../../assets/img/collected.png'),
+        noFavoriteImg: require('../../assets/img/collect.png'),
+        praiseImg: require('../../assets/img/liked.png'),
+        noPraiseImg: require('../../assets/img/like.png')
       }
     },
     computed: {
       listWidth() {
         return {
-          width: `${(this.sort.length) * 2.3}rem`
+          width: `${(this.mySort.length) * 2.3}rem`
         }
       }
     },
@@ -113,12 +113,10 @@
     margin: 0 0 .34rem 0;
 
     h2 {
-      font-family: PingFangSC-Medium;
       font-size: .36rem;
-      color: #2C2C2C;
+      color: #354168;
       line-height: .5rem;
       margin-bottom: .3rem;
-      /*padding-right: .2rem;*/
       margin-left: .3rem;
 
       a {
@@ -129,16 +127,15 @@
 
         span {
           position: relative;
-          font-family: PingFangSC-Regular;
           font-size: .28rem;
-          color: #999999;
+          color: #919BB0;
 
           &::after {
             position: absolute;
             top: .02rem;
             right: -.36rem;
             content: '';
-            background: url("../../../assets/img/return.png") no-repeat;
+            background: url("../../assets/img/return.png") no-repeat;
             width: .36rem;
             height: .36rem;
             background-size: 100%;
@@ -214,7 +211,6 @@
                     height: .34rem;
                     border-radius: 1rem;
                     padding: .04rem .12rem;
-                    font-family: PingFangSC-Regular;
                     font-size: .2rem;
                   }
                 }
@@ -244,9 +240,8 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            font-family: PingFangSC-Medium;
             font-size: .28rem;
-            color: #2C2C2C;
+            color: #354168;
           }
         }
       }

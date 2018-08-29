@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import HomeHeader from './base/HomeHeader'
+  import HomeHeader from './HomeHeader'
 
   export default {
     name: "Library",

@@ -1,7 +1,7 @@
 <template>
   <main class="m-home">
     <router-view></router-view>
-    <Footer :selected="selected" :tabs="tabs" v-if="this.$route.path !== '/home/search'"></Footer>
+    <Footer :selected="selected" :tabs="tabs" v-if="this.$route.path !== '/home/search' && this.$route.path !== '/home/searchresult'"></Footer>
   </main>
 </template>
 <script>

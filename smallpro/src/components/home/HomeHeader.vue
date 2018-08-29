@@ -2,8 +2,8 @@
   <mt-navbar v-model="message" class="clear" fixed>
     <mt-tab-item id="edit">编辑推荐</mt-tab-item>
     <mt-tab-item id="library">全部作品</mt-tab-item>
-    <router-link to="/home/search" class="m-home-search">
-      <img src="../../../assets/img/search.png" alt="">
+    <router-link to="/search" class="m-home-search">
+      <img src="../../assets/img/search.png" alt="">
     </router-link>
   </mt-navbar>
 </template>
@@ -50,8 +50,6 @@
       height: .6rem;
       line-height: .6rem;
       padding: 0;
-      font-family: PingFangSC-Medium;
-      /*font-weight: bold;*/
       margin-right: .32rem;
       cursor: pointer;
 
@@ -60,7 +58,7 @@
         border: none;
 
         .mint-tab-item-label {
-          color: #FF656D;
+          color: #647DFF;
           opacity: 1;
           font-size: .44rem;
           line-height: .6rem;
@@ -69,7 +67,7 @@
       }
 
       .mint-tab-item-label {
-        color: #2C2C2C;
+        color: #354168;
         opacity: 0.38;
         font-size: .32rem;
         line-height: .44rem;

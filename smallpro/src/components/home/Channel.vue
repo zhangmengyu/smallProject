@@ -25,7 +25,7 @@
               </p>
             </div>
             <span class="m-home-sRecommend">
-              <img src="../../../assets/img/recommend.png" alt="">
+              <img src="../../assets/img/recommend.png" alt="">
             </span>
           </a>
           <p>{{item.gname}}</p>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-  import {getEditDatabyType, setCollection, cannelCollection} from '../../../api';
+  import {getEditDatabyType, setCollection, cannelCollection} from '../../api/index';
 
   export default {
     name: "Channel",
@@ -50,15 +50,12 @@
         totalPages: 0,
         loading: false,
         allLoaded: false,
-        favoriteImg: require('../../../assets/img/collected.png'),
-        noFavoriteImg: require('../../../assets/img/collect.png'),
-        praiseImg: require('../../../assets/img/liked.png'),
-        noPraiseImg: require('../../../assets/img/like.png')
+        favoriteImg: require('../../assets/img/collected.png'),
+        noFavoriteImg: require('../../assets/img/collect.png'),
+        praiseImg: require('../../assets/img/liked.png'),
+        noPraiseImg: require('../../assets/img/like.png')
       }
     },
-    /*created() {
-      this.getData();
-    },*/
     methods: {
       getData() {
         let _this = this,
@@ -72,9 +69,7 @@
         getEditDatabyType(data).then(function (res) {
           if (res.isOk) {
             _this.workList = _this.workList.concat(res.data.list);
-            // _this.page++;
             _this.totalPages = res.data.totalPages;
-            // _this.page > _this.totalPages ? _this.allLoaded = true : null;
           }
         })
       },
@@ -122,7 +117,7 @@
           };
           setCollection(data).then(function (res) {
             if (res.isOk) {
-              _this.workList[index]['is_fav'] = 1;
+              _this.workList[index]['favorite'] = 1;
             }
           });
         }
@@ -135,8 +130,7 @@
   .mint-header {
     background-color: #ffffff;
     height: 1.3rem;
-    color: #2C2C2C;
-    font-family: PingFangSC-Regular;
+    color: #354168;
     font-size: .36rem;
     padding: .56rem .3rem 0;
 
@@ -233,7 +227,6 @@
                   height: .34rem;
                   border-radius: 1rem;
                   padding: .04rem .12rem;
-                  font-family: PingFangSC-Regular;
                   font-size: .2rem;
                 }
               }
@@ -263,9 +256,8 @@
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-          font-family: PingFangSC-Medium;
           font-size: .28rem;
-          color: #2C2C2C;
+          color: #354168;
         }
       }
     }

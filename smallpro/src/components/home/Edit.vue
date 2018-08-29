@@ -20,9 +20,9 @@
 </template>
 
 <script>
-  import HomeHeader from './base/HomeHeader';
-  import Carousel from './base/Carousel';
-  import Sort from './base/sort';
+  import HomeHeader from './HomeHeader';
+  import Carousel from './Carousel';
+  import Sort from './sort';
   import {getEditPageData, getEditDatabyType, setCollection, cannelCollection} from '../../api';
 
   export default {
@@ -163,10 +163,9 @@
       height: 100%;
       line-height: 1.36rem;
       text-align: center;
-      font-family: PingFangSC-Medium;
       font-size: .32rem;
       font-weight: bold;
-      color: #2C2C2C;
+      color: #354168;
     }
   }
 </style>
